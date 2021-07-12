@@ -48,16 +48,72 @@
 //	are in machine.h.
 //----------------------------------------------------------------------
 
+// xu ly cac Exception
 void
 ExceptionHandler(ExceptionType which)
 {
     int type = machine->ReadRegister(2);
+    // bat dau xu ly cac Exception tuong ung
+    switch (which)
+    {
+	case NoException:
+		return;
 
-    if ((which == SyscallException) && (type == SC_Halt)) {
-	DEBUG('a', "Shutdown, initiated by user program.\n");
-   	interrupt->Halt();
-    } else {
-	printf("Unexpected user mode exception %d %d\n", which, type);
-	ASSERT(FALSE);
+	case PageFaultException:
+		DEBUG('a', "\n No valid translation found");
+		printf("\nNo valid translation found");
+		interrupt->Halt();
+		break;
+
+	case ReadOnlyException:
+		DEBUG('a', "\n Write attempted to page marked read-only");
+		printf("\nWrite attempted to page marked read-only");
+		interrupt->Halt();
+		break;
+
+	case BusErrorException:
+		DEBUG('a', "\n Translation resulted invalid physical address");
+		printf("\nTranslation resulted invalid physical address");
+		interrupt->Halt();
+		break;
+
+	case AddressErrorException:
+		DEBUG('a', "\n Unaligned reference or one that was beyond the end of the address space");
+		printf("\nUnaligned reference or one that was beyond the end of the address space");
+		interrupt->Halt();
+		break;
+
+	case OverflowException:
+		DEBUG('a', "\nInteger overflow in add or sub.");
+		printf("\nInteger overflow in add or sub.");
+		interrupt->Halt();
+		break;
+
+	case IllegalInstrException:
+		DEBUG('a', "\n Unimplemented or reserved instr.");
+		printf("\nUnimplemented or reserved instr.");
+		interrupt->Halt();
+		break;
+
+	case NumExceptionTypes:
+		DEBUG('a', "\n Number exception types");
+		printf("\nNumber exception types");
+		interrupt->Halt();
+		break;
+
+	case SyscallException:// xu ly cac ham viet cho user system call
+		switch (type)
+		{
+			case SC_Halt:
+				DEBUG('a', "Shutdown, initiated by user program.\n");
+				printf("\nShutdown, initiated by user program.");
+   				interrupt->Halt();
+				break;
+		}
+	default:
+		printf("Unexpected user mode exception %d %d\n", which, type);
+		ASSERT(FALSE);
+			
     }
+ 
 }
