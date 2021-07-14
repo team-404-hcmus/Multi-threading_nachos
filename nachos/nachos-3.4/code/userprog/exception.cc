@@ -26,6 +26,7 @@
 #include "syscall.h"
 #define MAX 200
 // increase program counter
+
 void IncreasePC()
 {
 	int tmp = machine->ReadRegister(PCReg);
@@ -44,7 +45,7 @@ void SysCall_ReadInt()
 	//INPUT: None
 	//OUTPUT: tra ve gia tri la so nguyen, neu khong phai so nguyen se tra ve 0
 	char *buffer = new char[MAX + 1];
-	int numbytes = gSynchConsole->Read(buffer, MAX);
+	int numbytes = gSynchConsole->Read(buffer, MAX+1);
 	int cur_pos = 0;
 	bool isNegative = false;
 	bool isValid = true;
@@ -102,7 +103,6 @@ void SysCall_ReadInt()
 
 		machine->WriteRegister(2, result);
 	}
-
 	delete buffer;
 }
 //----------------------------------------------------------------------
@@ -131,7 +131,6 @@ void
 ExceptionHandler(ExceptionType which)
 {
 	int type = machine->ReadRegister(2);
-
 	switch (which)
 	{
 		case NoException:
