@@ -52,3 +52,9 @@ Mkfile.old
 dkms.conf
 local_folder
 local_folder/
+nachos/nachos-3.4/code/*
+nachos/nachos-3.4/code/*/
+!nachos/nachos-3.4/code/test/
+!nachos/nachos-3.4/code/test
+!nachos/nachos-3.4/code/userprog/
+!nachos/nachos-3.4/code/userprog
