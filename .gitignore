@@ -55,8 +55,8 @@ local_folder/
 
 
 
-!./nachos/nachos-3.4/code/*/system.cc
-!./nachos/nachos-3.4/code/*/system.h
+!nachos/nachos-3.4/code/threads/
+!nachos/nachos-3.4/code/threads
 !nachos/nachos-3.4/code/test/
 !nachos/nachos-3.4/code/test
 !nachos/nachos-3.4/code/userprog/
